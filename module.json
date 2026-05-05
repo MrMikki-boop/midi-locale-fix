@@ -1,0 +1,35 @@
+{
+  "id": "midi-locale-fix",
+  "title": "Midi Locale Key Fix",
+  "description": "<p>Перехватывает создание и обновление Active Effects, заменяя русские аббревиатуры характеристик и навыков (сил, лов, акр и т.д.) на английские (str, dex, acr). Решает проблему совместимости русских переводов с Midi-QoL и Cauldron of Plentiful Resources.</p>",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": [
+    "scripts/main.mjs"
+  ],
+  "authors": [
+    {
+      "name": "MaxKoffing",
+      "url": "https://github.com/MrMikki-boop",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/MrMikki-boop/midi-locale-fix",
+  "manifest": "https://github.com/MrMikki-boop/midi-locale-fix/releases/latest/download/module.json",
+  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v1.0/midi-locale-fix.zip",
+  "license": "LICENSE",
+  "readme": "README.md",
+  "relationships": {
+    "recommends": [
+      {
+        "id": "chris-premades",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  },
+  "flags": {}
+}
