@@ -1,22 +1,10 @@
 {
-  "MIDI_LOCALE_FIX": {
-    "Settings": {
-      "Debug": {
-        "Name": "Log fixed Active Effect keys",
-        "Hint": "Print every corrected Active Effect key to the console."
-      },
-      "Verbose": {
-        "Name": "Verbose logging",
-        "Hint": "Print all Active Effect keys inspected by this module, including keys that were not changed."
-      },
-      "FixCPRLookup": {
-        "Name": "Fix CPR localized item lookup",
-        "Hint": "Let Cauldron of Plentiful Resources find automations for bilingual names such as 'Сглаз / Hex'."
-      },
-      "SuppressCPRWarnings": {
-        "Name": "Suppress known CPR false warnings",
-        "Hint": "Hide known false CPR warnings, currently the Fire Shield tour lookup warning."
-      }
-    }
-  }
+  "MIDI_LOCALE_FIX.Settings.Debug.Name": "Log fixed Active Effect keys",
+  "MIDI_LOCALE_FIX.Settings.Debug.Hint": "Print every corrected Active Effect key to the console.",
+  "MIDI_LOCALE_FIX.Settings.Verbose.Name": "Verbose logging",
+  "MIDI_LOCALE_FIX.Settings.Verbose.Hint": "Print all Active Effect keys inspected by this module, including keys that were not changed.",
+  "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Name": "Fix CPR localized item lookup",
+  "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Hint": "Let Cauldron of Plentiful Resources find automations for bilingual names such as 'Сглаз / Hex'.",
+  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Name": "Suppress known CPR false warnings",
+  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "Hide known false CPR warnings, currently the Fire Shield tour lookup warning."
 }

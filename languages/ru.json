@@ -1,22 +1,10 @@
 {
-  "MIDI_LOCALE_FIX": {
-    "Settings": {
-      "Debug": {
-        "Name": "Логировать исправленные ключи Active Effect",
-        "Hint": "Печатать в консоль каждый исправленный ключ Active Effect."
-      },
-      "Verbose": {
-        "Name": "Подробное логирование",
-        "Hint": "Печатать все ключи Active Effect, которые проверяет модуль, включая неизмененные."
-      },
-      "FixCPRLookup": {
-        "Name": "Исправлять поиск локализованных предметов CPR",
-        "Hint": "Позволяет Cauldron of Plentiful Resources находить автоматизации для двуязычных названий вроде 'Сглаз / Hex'."
-      },
-      "SuppressCPRWarnings": {
-        "Name": "Скрывать известные ложные предупреждения CPR",
-        "Hint": "Скрывает известные ложные предупреждения CPR, сейчас это предупреждение тура про Fire Shield."
-      }
-    }
-  }
+  "MIDI_LOCALE_FIX.Settings.Debug.Name": "Логировать исправленные ключи Active Effect",
+  "MIDI_LOCALE_FIX.Settings.Debug.Hint": "Печатать в консоль каждый исправленный ключ Active Effect.",
+  "MIDI_LOCALE_FIX.Settings.Verbose.Name": "Подробное логирование",
+  "MIDI_LOCALE_FIX.Settings.Verbose.Hint": "Печатать все ключи Active Effect, которые проверяет модуль, включая неизмененные.",
+  "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Name": "Исправлять поиск локализованных предметов CPR",
+  "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Hint": "Позволяет Cauldron of Plentiful Resources находить автоматизации для двуязычных названий вроде 'Сглаз / Hex'.",
+  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Name": "Скрывать известные ложные предупреждения CPR",
+  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "Скрывает известные ложные предупреждения CPR, сейчас это предупреждение тура про Fire Shield."
 }
