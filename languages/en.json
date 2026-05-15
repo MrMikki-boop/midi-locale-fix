@@ -1,0 +1,22 @@
+{
+  "MIDI_LOCALE_FIX": {
+    "Settings": {
+      "Debug": {
+        "Name": "Log fixed Active Effect keys",
+        "Hint": "Print every corrected Active Effect key to the console."
+      },
+      "Verbose": {
+        "Name": "Verbose logging",
+        "Hint": "Print all Active Effect keys inspected by this module, including keys that were not changed."
+      },
+      "FixCPRLookup": {
+        "Name": "Fix CPR localized item lookup",
+        "Hint": "Let Cauldron of Plentiful Resources find automations for bilingual names such as 'Сглаз / Hex'."
+      },
+      "SuppressCPRWarnings": {
+        "Name": "Suppress known CPR false warnings",
+        "Hint": "Hide known false CPR warnings, currently the Fire Shield tour lookup warning."
+      }
+    }
+  }
+}
