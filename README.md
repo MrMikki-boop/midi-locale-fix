@@ -151,6 +151,17 @@ node --check scripts/api.mjs
 node -e "const fs=require('fs'); for (const p of ['module.json','languages/en.json','languages/ru.json']) JSON.parse(fs.readFileSync(p,'utf8')); console.log('json ok')"
 ```
 
+GitHub Actions автоматически собирает release assets при пуше тега вида `v1.1.0`.
+
+В GitHub Release должны быть именно эти файлы:
+
+```text
+dist/module.json
+dist/midi-locale-fix.zip
+```
+
+`Source code (zip)` генерируется GitHub автоматически и не является установочным архивом Foundry.
+
 ## Лицензия
 
 MIT
