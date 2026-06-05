@@ -151,7 +151,7 @@ node --check scripts/api.mjs
 node -e "const fs=require('fs'); for (const p of ['module.json','languages/en.json','languages/ru.json']) JSON.parse(fs.readFileSync(p,'utf8')); console.log('json ok')"
 ```
 
-GitHub Actions автоматически собирает release assets при пуше тега вида `v1.1.0`.
+GitHub Actions автоматически собирает release assets при пуше тега вида `vX.Y.Z`, например `v1.2.0`.
 
 В GitHub Release должны быть именно эти файлы:
 

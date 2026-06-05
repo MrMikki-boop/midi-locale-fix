@@ -33,7 +33,9 @@ jobs:
 
           if (tag !== versionTag) throw new Error(`Tag ${tag} does not match module.json version ${versionTag}.`);
           if (manifest.manifest !== expectedManifest) throw new Error(`manifest URL should be ${expectedManifest}`);
-          if (manifest.download !== expectedDownload) throw new Error(`download URL should be ${expectedDownload}`);
+          if (manifest.download !== expectedDownload) {
+            throw new Error(`module.json download URL is ${manifest.download}; expected ${expectedDownload}`);
+          }
 
           for (const language of manifest.languages ?? []) {
             JSON.parse(fs.readFileSync(language.path, "utf8"));
