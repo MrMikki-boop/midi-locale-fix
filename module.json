@@ -2,7 +2,7 @@
   "id": "midi-locale-fix",
   "title": "Midi Locale Key Fix",
   "description": "<p>Перехватывает создание и обновление Active Effects, заменяя русские аббревиатуры характеристик и навыков (сил, лов, акр и т.д.) на английские (str, dex, acr). Решает проблему совместимости русских переводов с Midi-QoL и Cauldron of Plentiful Resources.</p>",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "compatibility": {
     "minimum": "13",
     "verified": "13",
