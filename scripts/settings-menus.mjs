@@ -112,7 +112,9 @@ function readSetting(key, fallback) {
 
 async function promptReload(settings) {
   const requiresWorldReload = settings.some((setting) => setting.scope === "world");
-  const SettingsConfig = foundry.applications.settings?.SettingsConfig ?? globalThis.SettingsConfig;
+  const SettingsConfig = foundry.applications.settings?.SettingsConfig
+    ?? foundry.applications.apps?.SettingsConfig
+    ?? globalThis.SettingsConfig;
 
   if (SettingsConfig?.reloadConfirm) {
     await SettingsConfig.reloadConfirm({ world: requiresWorldReload });

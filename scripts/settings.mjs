@@ -57,7 +57,8 @@ export function registerSettings() {
     scope: "world",
     config: false,
     type: Boolean,
-    default: true
+    default: true,
+    requiresReload: true
   });
 
   game.settings.register(MODULE_ID, SETTING_KEYS.suppressCPRWarnings, {

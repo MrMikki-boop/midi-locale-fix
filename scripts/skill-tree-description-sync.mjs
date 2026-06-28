@@ -47,10 +47,13 @@ async function syncSkillPageFromLinkedItemChange(page, changes) {
   const itemUuid = getFirstLinkedItemUuid(page);
   if (!itemUuid) return;
 
+  const fields = getEnabledSyncFields();
+  if (!fields.length) return;
+
   const item = await fromUuid(itemUuid);
   if (!isItemDocument(item)) return;
 
-  await syncSkillPageFields(page, item, getEnabledSyncFields());
+  await syncSkillPageFields(page, item, fields);
 }
 
 function canSyncSkillTreeFields() {
