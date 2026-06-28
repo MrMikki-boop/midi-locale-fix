@@ -1,0 +1,20 @@
+<section class="standard-form">
+  {{#each settings as |setting|}}
+    <div class="form-group">
+      <label for="{{setting.key}}">{{localize setting.name}}</label>
+      <div class="form-fields">
+        <input id="{{setting.key}}" type="checkbox" name="{{setting.key}}" {{checked setting.value}}>
+      </div>
+      {{#if setting.hint}}
+        <p class="hint">{{localize setting.hint}}</p>
+      {{/if}}
+    </div>
+  {{/each}}
+
+  <footer class="form-footer">
+    <button type="submit">
+      <i class="fas fa-save"></i>
+      {{localize "SETTINGS.Save"}}
+    </button>
+  </footer>
+</section>

@@ -41,7 +41,10 @@ export function runDiagnostics() {
       debug: readSetting(SETTING_KEYS.debug, false),
       verbose: readSetting(SETTING_KEYS.verbose, false),
       fixCPRLookup: readSetting(SETTING_KEYS.fixCPRLookup, true),
-      suppressCPRWarnings: readSetting(SETTING_KEYS.suppressCPRWarnings, true)
+      suppressCPRWarnings: readSetting(SETTING_KEYS.suppressCPRWarnings, true),
+      skillTreeSyncName: readSetting(SETTING_KEYS.skillTreeSyncName, true),
+      skillTreeSyncImage: readSetting(SETTING_KEYS.skillTreeSyncImage, true),
+      skillTreeSyncDescription: readSetting(SETTING_KEYS.skillTreeSyncDescription, true)
     },
     patches: {
       cprInstalled: Boolean(cpr),

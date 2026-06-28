@@ -3,10 +3,12 @@ import { exposeApi } from "./api.mjs";
 import { patchCPRLocaleSearch, patchNotificationSuppression } from "./cpr-locale-patch.mjs";
 import { registerEffectKeyFixHooks } from "./effect-key-fix.mjs";
 import { registerSettings } from "./settings.mjs";
+import { registerSkillTreeDescriptionSyncHooks } from "./skill-tree-description-sync.mjs";
 
 Hooks.once("init", () => {
   registerSettings();
   registerEffectKeyFixHooks();
+  registerSkillTreeDescriptionSyncHooks();
   exposeApi();
 
   console.log(`[${MODULE_ID}] Module initialized`);

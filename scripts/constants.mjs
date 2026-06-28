@@ -5,7 +5,16 @@ export const SETTING_KEYS = {
   debug: "debug",
   verbose: "verbose",
   fixCPRLookup: "fixCPRLookup",
-  suppressCPRWarnings: "suppressCPRWarnings"
+  suppressCPRWarnings: "suppressCPRWarnings",
+  skillTreeSyncName: "skillTreeSyncName",
+  skillTreeSyncImage: "skillTreeSyncImage",
+  skillTreeSyncDescription: "skillTreeSyncDescription"
+};
+
+export const SETTING_MENU_KEYS = {
+  activeEffects: "activeEffectsMenu",
+  cpr: "cprMenu",
+  skillTree: "skillTreeMenu"
 };
 
 export const CPR_PATCH_FLAG = "__midiLocaleFixCPRPatched";

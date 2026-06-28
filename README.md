@@ -68,10 +68,9 @@ Hex
 
 В настройках Foundry доступны:
 
-- **Log fixed Active Effect keys** - логирует исправленные ключи Active Effect.
-- **Verbose logging** - логирует все проверенные ключи Active Effect.
-- **Fix CPR localized item lookup** - включает fallback-поиск CPR для локализованных и двуязычных названий.
-- **Suppress known CPR false warnings** - скрывает известные ложные предупреждения CPR.
+- **Active Effects** - внутреннее меню с логированием исправленных и проверенных Active Effect keys.
+- **Cauldron of Plentiful Resources** - внутреннее меню с fallback-поиском CPR и скрытием известных ложных предупреждений.
+- **Skill Tree** - внутреннее меню синхронизации страниц Skill Tree из первого связанного предмета. Можно отдельно включить синхронизацию названия, изображения и описания.
 
 Для настроек есть английская и русская локализация:
 
@@ -113,8 +112,10 @@ api.isSuppressedCPRWarning("Предмет в компендиуме не най
 scripts/main.mjs              Entry point: hooks, settings, API
 scripts/constants.mjs         Константы, карты характеристик и навыков
 scripts/settings.mjs          Регистрация настроек Foundry
+scripts/settings-menus.mjs    Внутренние меню настроек
 scripts/effect-key-fix.mjs    Исправление Active Effect keys
 scripts/cpr-locale-patch.mjs  CPR fallback lookup и warning suppression
+scripts/skill-tree-description-sync.mjs  Синхронизация Skill Tree из связанных предметов
 scripts/api.mjs               Диагностический API
 ```
 
@@ -140,27 +141,12 @@ https://github.com/MrMikki-boop/midi-locale-fix/releases
 node --check scripts/main.mjs
 node --check scripts/constants.mjs
 node --check scripts/settings.mjs
+node --check scripts/settings-menus.mjs
 node --check scripts/effect-key-fix.mjs
 node --check scripts/cpr-locale-patch.mjs
+node --check scripts/skill-tree-description-sync.mjs
 node --check scripts/api.mjs
 ```
-
-Проверка JSON:
-
-```powershell
-node -e "const fs=require('fs'); for (const p of ['module.json','languages/en.json','languages/ru.json']) JSON.parse(fs.readFileSync(p,'utf8')); console.log('json ok')"
-```
-
-GitHub Actions автоматически собирает release assets при пуше тега вида `vX.Y.Z`, например `v1.2.0`.
-
-В GitHub Release должны быть именно эти файлы:
-
-```text
-dist/module.json
-dist/midi-locale-fix.zip
-```
-
-`Source code (zip)` генерируется GitHub автоматически и не является установочным архивом Foundry.
 
 ## Лицензия
 
