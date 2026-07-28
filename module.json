@@ -2,7 +2,7 @@
   "id": "midi-locale-fix",
   "title": "Midi Locale Key Fix",
   "description": "<p>Перехватывает создание и обновление Active Effects, заменяя русские аббревиатуры характеристик и навыков (сил, лов, акр и т.д.) на английские (str, dex, acr). Решает проблему совместимости русских переводов с Midi-QoL и Cauldron of Plentiful Resources.</p>",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "compatibility": {
     "minimum": "13",
     "verified": "13",
@@ -34,15 +34,49 @@
   ],
   "url": "https://github.com/MrMikki-boop/midi-locale-fix",
   "manifest": "https://github.com/MrMikki-boop/midi-locale-fix/releases/latest/download/module.json",
-  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v1.3.0/midi-locale-fix.zip",
+  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v1.3.1/midi-locale-fix.zip",
   "license": "LICENSE",
   "readme": "README.md",
   "relationships": {
-    "recommends": [
+    "requires": [
+      {
+        "id": "midi-qol",
+        "type": "module",
+        "compatibility": {
+          "minimum": "13.0.48"
+        }
+      },
+      {
+        "id": "dae",
+        "type": "module",
+        "compatibility": {
+          "minimum": "13.0.17"
+        }
+      },
+      {
+        "id": "socketlib",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.1.2"
+        }
+      },
+      {
+        "id": "lib-wrapper",
+        "type": "module"
+      },
       {
         "id": "chris-premades",
         "type": "module",
-        "compatibility": {}
+        "compatibility": {
+          "minimum": "1.5.27"
+        }
+      },
+      {
+        "id": "times-up",
+        "type": "module",
+        "compatibility": {
+          "minimum": "13.1.2"
+        }
       }
     ]
   },

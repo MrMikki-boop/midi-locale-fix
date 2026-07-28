@@ -133,6 +133,19 @@ You can also download a release archive from:
 https://github.com/MrMikki-boop/midi-locale-fix/releases
 ```
 
+## Dependencies
+
+The module declares CPR and its runtime requirements as direct required dependencies:
+
+- Midi-QOL
+- Dynamic Active Effects
+- socketlib
+- libWrapper
+- Cauldron of Plentiful Resources
+- Times Up
+
+Foundry may not install transitive module dependencies reliably during module installation, so Times Up is listed directly even though CPR also requires it.
+
 ## Разработка
 
 Быстрая проверка синтаксиса:
