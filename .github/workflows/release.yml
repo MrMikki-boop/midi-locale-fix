@@ -1,16 +1,16 @@
-name: Publish Foundry module
+name: Build Foundry release draft
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: module-release
   cancel-in-progress: false
 
 jobs:
@@ -28,15 +28,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Validate release and build ZIP
+      - name: Validate module and build ZIP
         run: |
           $ErrorActionPreference = 'Stop'
+          if ($env:GITHUB_REF_NAME -ne 'master') { throw 'Run this workflow on master' }
           $m = Get-Content module.json -Raw | ConvertFrom-Json
           $tag = "v$($m.version)"
           $repo = "https://github.com/$env:GITHUB_REPOSITORY"
-          if ($env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -ne $tag) { throw "Run on tag $tag; it must match module.json" }
           if ($m.manifest -ne "$repo/releases/latest/download/module.json") { throw 'Incorrect manifest URL' }
-          if ($m.download -ne "$repo/releases/download/$tag/$($m.id)-$($m.version).zip") { throw 'Incorrect download URL' }
+          if ($m.download -ne "$repo/releases/download/$tag/$($m.id).zip") { throw 'Incorrect download URL' }
           foreach ($file in Get-ChildItem scripts -Filter '*.mjs' -File -Recurse) {
             node --check $file.FullName
             if ($LASTEXITCODE -ne 0) { throw "Invalid JavaScript: $file" }
@@ -50,13 +50,36 @@ jobs:
           }
           New-Item -ItemType Directory -Path dist -Force | Out-Null
           Copy-Item -LiteralPath module.json -Destination dist/module.json
-          Compress-Archive -LiteralPath $runtime -DestinationPath "dist/$($m.id)-$($m.version).zip" -Force
-      - name: Publish release assets
+          Compress-Archive -LiteralPath $runtime -DestinationPath "dist/$($m.id).zip" -Force
+      - name: Create tag and prepare release draft
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference = 'Stop'
           $m = Get-Content module.json -Raw | ConvertFrom-Json
           $tag = "v$($m.version)"
-          gh release create $tag "dist/module.json" "dist/$($m.id)-$($m.version).zip" --repo $env:GITHUB_REPOSITORY --verify-tag --title "$($m.title) $($m.version)" --generate-notes
-          if ($LASTEXITCODE -ne 0) { throw 'Release creation failed; existing releases are not overwritten.' }
+          $releases = gh release list --repo $env:GITHUB_REPOSITORY --limit 100 --json tagName,isDraft | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) { throw 'Could not read releases' }
+          $release = $releases | Where-Object tagName -eq $tag
+          if ($release -and !$release.isDraft) {
+            $details = gh release view $tag --repo $env:GITHUB_REPOSITORY --json assets | ConvertFrom-Json
+            if ($LASTEXITCODE -ne 0) { throw 'Could not read release assets' }
+            if ($details.assets.Count) {
+              Write-Output "$tag is already published; increment module.json version for the next release"
+              return
+            }
+            gh release edit $tag --repo $env:GITHUB_REPOSITORY --draft
+            if ($LASTEXITCODE -ne 0) { throw 'Could not recover the empty release as a draft' }
+          }
+          $tagRef = git ls-remote --tags origin "refs/tags/$tag"
+          if ($LASTEXITCODE -ne 0) { throw 'Could not read tags' }
+          if (!$tagRef) {
+            gh api "repos/$env:GITHUB_REPOSITORY/git/refs" --method POST -f "ref=refs/tags/$tag" -f "sha=$env:GITHUB_SHA"
+            if ($LASTEXITCODE -ne 0) { throw 'Tag creation failed' }
+          }
+          if ($release) {
+            gh release upload $tag "dist/module.json" "dist/$($m.id).zip" --repo $env:GITHUB_REPOSITORY --clobber
+          } else {
+            gh release create $tag "dist/module.json" "dist/$($m.id).zip" --repo $env:GITHUB_REPOSITORY --verify-tag --draft --title "$($m.title) $($m.version)" --generate-notes
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'Preparing release assets failed' }
