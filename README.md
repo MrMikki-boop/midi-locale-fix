@@ -1,11 +1,13 @@
 # Midi Locale Key Fix
 
-![Foundry v13](https://img.shields.io/badge/Foundry-v13-green)
+![Foundry v13–14](https://img.shields.io/badge/Foundry-v13%E2%80%9314-green)
 ![GitHub downloads](https://img.shields.io/github/downloads/MrMikki-boop/midi-locale-fix/total?label=GitHub%20downloads)
 ![GitHub downloads latest](https://img.shields.io/github/downloads/MrMikki-boop/midi-locale-fix/latest/total?label=latest%20downloads)
 [![Report bugs on GitHub](https://img.shields.io/badge/report%20bugs-GitHub-red)](https://github.com/MrMikki-boop/midi-locale-fix/issues)
 
-Небольшой модуль для Foundry VTT v13 + dnd5e 5.x, который чинит проблемы совместимости русской локализации с Midi-QoL и Cauldron of Plentiful Resources.
+Небольшой модуль для Foundry VTT v13–14 + dnd5e, который чинит проблемы совместимости русской локализации с Midi-QoL и Cauldron of Plentiful Resources.
+
+В версии 1.3.3 разрешён запуск на Foundry 14. Проверка в живом мире v14 ещё нужна, поэтому `compatibility.verified` остаётся `13`. Поддержка Foundry 13 сохранена.
 
 ## Что чинит
 
@@ -56,13 +58,13 @@ CPR ищет автоматизации по английскому имени �
 Hex
 ```
 
-Также модуль скрывает известное ложное предупреждение CPR:
+Если CPR установлен и активен, модуль скрывает известное ложное предупреждение CPR:
 
 ```text
 Предмет в компендиуме не найден! chris-premades.CPRSpells: Fire Shield
 ```
 
-Это предупреждение приходит из CPR tour lookup и не означает, что предмет реально отсутствует или используется.
+Скрывается только точный текст этого предупреждения и только когда индекс компендиума содержит Fire Shield, его английский alias или CPR identifier. Если предмет реально отсутствует, индекс недоступен или сообщение относится к другому предмету, предупреждение остаётся.
 
 ## Настройки
 
@@ -103,7 +105,7 @@ api.testCPRName("Сглаз / Hex");
 
 ```js
 api.isSuppressedCPRWarning("Предмет в компендиуме не найден! chris-premades.CPRSpells: Fire Shield");
-// true
+// true только при наличии предмета или его CPR identifier в индексе компендиума
 ```
 
 ## Структура
@@ -135,31 +137,11 @@ https://github.com/MrMikki-boop/midi-locale-fix/releases
 
 ## Dependencies
 
-The module declares CPR and its runtime requirements as direct required dependencies:
+Модуль рассчитан на систему **dnd5e**, без привязки версии dnd5e к поколению Foundry. Обязательных модульных зависимостей нет.
 
-- Midi-QOL
-- Dynamic Active Effects
-- socketlib
-- libWrapper
-- Cauldron of Plentiful Resources
-- Times Up
+**Midi-QoL**, **Cauldron of Plentiful Resources** и **Skill Tree** — рекомендуемые интеграции. Исправление ключей Active Effects работает самостоятельно; CPR fallback и Skill Tree синхронизация включаются при наличии соответствующих модулей. DAE, socketlib, libWrapper и Times Up устанавливаются по требованиям самих автоматизаций.
 
-Foundry may not install transitive module dependencies reliably during module installation, so Times Up is listed directly even though CPR also requires it.
-
-## Разработка
-
-Быстрая проверка синтаксиса:
-
-```powershell
-node --check scripts/main.mjs
-node --check scripts/constants.mjs
-node --check scripts/settings.mjs
-node --check scripts/settings-menus.mjs
-node --check scripts/effect-key-fix.mjs
-node --check scripts/cpr-locale-patch.mjs
-node --check scripts/skill-tree-description-sync.mjs
-node --check scripts/api.mjs
-```
+Foundry 13 и 14 допускаются независимо от версии dnd5e. Например, сочетание Foundry 14 и dnd5e 5.3.3 не запрещено нашим манифестом. Совместимость самой системы и сторонних автоматизаций с выбранной Foundry определяется их собственными манифестами и API.
 
 ## Лицензия
 

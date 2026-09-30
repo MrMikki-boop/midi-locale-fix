@@ -16,7 +16,6 @@ import { getSetting } from "./settings.mjs";
 
 const SAMPLE_CPR_NAME = "Сглаз / Hex";
 const SAMPLE_MIDI_KEY = "flags.midi-qol.disadvantage.check.сил";
-const SAMPLE_CPR_WARNING = "Предмет в компендиуме не найден! chris-premades.CPRSpells: Fire Shield";
 
 function readSetting(key, fallback) {
   try {
@@ -30,6 +29,7 @@ export function runDiagnostics() {
   const module = game.modules.get(MODULE_ID);
   const cpr = globalThis.chrisPremades;
   const notifications = globalThis.ui?.notifications;
+  const sampleCPRWarning = `${game.i18n.localize("CHRISPREMADES.Error.CompendiumItemNotFound")} chris-premades.CPRSpells: Fire Shield`;
 
   return {
     module: {
@@ -62,8 +62,8 @@ export function runDiagnostics() {
         candidates: getLookupNameCandidates(SAMPLE_CPR_NAME)
       },
       cprWarning: {
-        input: SAMPLE_CPR_WARNING,
-        suppressed: isSuppressedCPRWarning(SAMPLE_CPR_WARNING)
+        input: sampleCPRWarning,
+        suppressed: isSuppressedCPRWarning(sampleCPRWarning)
       }
     }
   };

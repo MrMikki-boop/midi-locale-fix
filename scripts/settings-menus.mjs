@@ -11,6 +11,10 @@ class MidiLocaleSettingsMenu extends HandlebarsApplicationMixin(ApplicationV2) {
       id: `${MODULE_ID}-${this.name.replace(/SettingsMenu$/, "").toLowerCase()}-settings`,
       classes: [MODULE_ID, "settings-menu"],
       tag: "form",
+      form: {
+        handler: MidiLocaleSettingsMenu.#onSubmit,
+        closeOnSubmit: false
+      },
       window: {
         title: this.TITLE,
         icon: "fas fa-cog",
@@ -46,19 +50,12 @@ class MidiLocaleSettingsMenu extends HandlebarsApplicationMixin(ApplicationV2) {
     };
   }
 
-  _onRender(context, options) {
-    super._onRender(context, options);
-
-    this.element.addEventListener("submit", this.#onSubmit.bind(this));
-  }
-
-  async #onSubmit(event) {
-    event.preventDefault();
+  static async #onSubmit(event, form) {
 
     const reloadSettings = [];
     for (const key of this.constructor.SETTINGS) {
       const setting = game.settings.settings.get(`${MODULE_ID}.${key}`);
-      const input = this.element.elements[key];
+      const input = form.elements.namedItem(key);
       const currentValue = Boolean(readSetting(key, setting?.default ?? false));
       const newValue = Boolean(input?.checked);
 
@@ -68,7 +65,7 @@ class MidiLocaleSettingsMenu extends HandlebarsApplicationMixin(ApplicationV2) {
       if (setting?.requiresReload) reloadSettings.push(setting);
     }
 
-    this.close();
+    await this.close();
 
     if (reloadSettings.length) await promptReload(reloadSettings);
   }

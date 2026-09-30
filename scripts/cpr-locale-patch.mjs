@@ -38,9 +38,22 @@ function getCPRRulesCandidates(key, rules) {
 
 export function isSuppressedCPRWarning(message) {
   if (typeof message !== "string") return false;
+  const prefix = game.i18n?.localize("CHRISPREMADES.Error.CompendiumItemNotFound");
+  if (!prefix || prefix === "CHRISPREMADES.Error.CompendiumItemNotFound") return false;
   return Object.entries(SUPPRESSED_CPR_WARNINGS).some(([pack, names]) => {
-    if (!message.includes(`${pack}:`)) return false;
-    return names.some((name) => message.includes(`${pack}: ${name}`));
+    const index = game.packs?.get(pack)?.index;
+    if (!index?.some) return false;
+    return names.some((name) => {
+      if (message.trim() !== `${prefix} ${pack}: ${name}`) return false;
+      const genericUtils = globalThis.chrisPremades?.utils?.genericUtils;
+      const identifiers = new Set([
+        ...(genericUtils?.getCPRIdentifiers?.(name, "legacy") ?? []),
+        ...(genericUtils?.getCPRIdentifiers?.(name, "modern") ?? [])
+      ]);
+      return index.some((entry) => getLookupNameCandidates(entry.name).includes(name)
+        || entry.flags?.["chris-premades"]?.info?.aliases?.includes(name)
+        || identifiers.has(entry.flags?.["chris-premades"]?.info?.identifier));
+    });
   });
 }
 
@@ -52,7 +65,7 @@ export function patchNotificationSuppression() {
 
   const originalWarn = notifications.warn.bind(notifications);
   notifications.warn = function(message, options) {
-    if (isSuppressedCPRWarning(message)) {
+    if (getSetting(SETTING_KEYS.suppressCPRWarnings, true) && isSuppressedCPRWarning(message)) {
       logDebug("Suppressed CPR warning", { message });
       return null;
     }

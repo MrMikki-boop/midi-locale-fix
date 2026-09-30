@@ -15,7 +15,7 @@
   "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Name": "Fix CPR localized item lookup",
   "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Hint": "Let Cauldron of Plentiful Resources find automations for bilingual names such as 'Сглаз / Hex'.",
   "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Name": "Suppress known CPR false warnings",
-  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "Hide known false CPR warnings, currently the Fire Shield tour lookup warning.",
+  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "Hide the exact Fire Shield lookup warning only when the compendium index contains the item or its CPR identifier. Missing items still produce warnings.",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncName.Name": "Sync name",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncName.Hint": "Keep the Skill Tree page name aligned with the first linked item name.",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncImage.Name": "Sync image",

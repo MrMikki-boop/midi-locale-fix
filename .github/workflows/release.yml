@@ -1,65 +1,62 @@
-name: Release
+name: Publish Foundry module
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
         with:
-          node-version: 22
-
-      - name: Validate release metadata
-        run: |
-          node - <<'NODE'
-          const fs = require("node:fs");
-          const manifest = JSON.parse(fs.readFileSync("module.json", "utf8"));
-          const tag = process.env.GITHUB_REF_NAME;
-          const versionTag = `v${manifest.version}`;
-          const expectedManifest = `https://github.com/MrMikki-boop/${manifest.id}/releases/latest/download/module.json`;
-          const expectedDownload = `https://github.com/MrMikki-boop/${manifest.id}/releases/download/${versionTag}/${manifest.id}.zip`;
-
-          if (tag !== versionTag) throw new Error(`Tag ${tag} does not match module.json version ${versionTag}.`);
-          if (manifest.manifest !== expectedManifest) throw new Error(`manifest URL should be ${expectedManifest}`);
-          if (manifest.download !== expectedDownload) {
-            throw new Error(`module.json download URL is ${manifest.download}; expected ${expectedDownload}`);
-          }
-
-          for (const language of manifest.languages ?? []) {
-            JSON.parse(fs.readFileSync(language.path, "utf8"));
-          }
-          NODE
-
-      - name: Check JavaScript syntax
-        run: |
-          find scripts -name "*.mjs" -print0 | xargs -0 -n 1 node --check
-
-      - name: Build Foundry release assets
-        run: |
-          mkdir -p dist
-          cp module.json dist/module.json
-          zip -r dist/midi-locale-fix.zip \
-            module.json \
-            README.md \
-            LICENSE \
-            scripts \
-            languages
-
-      - name: Upload release assets
-        uses: softprops/action-gh-release@v2
+          persist-credentials: false
+      - uses: actions/setup-node@v4
         with:
-          files: |
-            dist/module.json
-            dist/midi-locale-fix.zip
+          node-version: 24
+      - name: Validate release and build ZIP
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $m = Get-Content module.json -Raw | ConvertFrom-Json
+          $tag = "v$($m.version)"
+          $repo = "https://github.com/$env:GITHUB_REPOSITORY"
+          if ($env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -ne $tag) { throw "Run on tag $tag; it must match module.json" }
+          if ($m.manifest -ne "$repo/releases/latest/download/module.json") { throw 'Incorrect manifest URL' }
+          if ($m.download -ne "$repo/releases/download/$tag/$($m.id)-$($m.version).zip") { throw 'Incorrect download URL' }
+          foreach ($file in Get-ChildItem scripts -Filter '*.mjs' -File -Recurse) {
+            node --check $file.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Invalid JavaScript: $file" }
+          }
+          foreach ($language in $m.languages) {
+            Get-Content -LiteralPath $language.path -Raw | ConvertFrom-Json | Out-Null
+          }
+          $runtime = @('module.json', 'README.md', 'LICENSE', 'scripts', 'languages', 'templates')
+          foreach ($path in $runtime + @($m.esmodules) + @($m.scripts) + @($m.styles)) {
+            if ($path -and !(Test-Path -LiteralPath $path)) { throw "Missing runtime path: $path" }
+          }
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          Copy-Item -LiteralPath module.json -Destination dist/module.json
+          Compress-Archive -LiteralPath $runtime -DestinationPath "dist/$($m.id)-$($m.version).zip" -Force
+      - name: Publish release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $m = Get-Content module.json -Raw | ConvertFrom-Json
+          $tag = "v$($m.version)"
+          gh release create $tag "dist/module.json" "dist/$($m.id)-$($m.version).zip" --repo $env:GITHUB_REPOSITORY --verify-tag --title "$($m.title) $($m.version)" --generate-notes
+          if ($LASTEXITCODE -ne 0) { throw 'Release creation failed; existing releases are not overwritten.' }

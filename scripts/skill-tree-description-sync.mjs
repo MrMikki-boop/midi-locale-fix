@@ -50,7 +50,7 @@ async function syncSkillPageFromLinkedItemChange(page, changes) {
   const fields = getEnabledSyncFields();
   if (!fields.length) return;
 
-  const item = await fromUuid(itemUuid);
+  const item = await foundry.utils.fromUuid(itemUuid);
   if (!isItemDocument(item)) return;
 
   await syncSkillPageFields(page, item, fields);

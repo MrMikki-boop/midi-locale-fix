@@ -15,7 +15,7 @@
   "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Name": "Исправлять поиск локализованных предметов CPR",
   "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Hint": "Позволяет Cauldron of Plentiful Resources находить автоматизации для двуязычных названий вроде 'Сглаз / Hex'.",
   "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Name": "Скрывать известные ложные предупреждения CPR",
-  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "Скрывает известные ложные предупреждения CPR, сейчас это предупреждение тура про Fire Shield.",
+  "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "Скрывает точное предупреждение о Fire Shield, только если предмет или его CPR identifier есть в индексе компендиума. Предупреждения о реально отсутствующих предметах остаются.",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncName.Name": "Синхронизировать название",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncName.Hint": "Держать название страницы Skill Tree таким же, как название первого связанного предмета.",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncImage.Name": "Синхронизировать изображение",
