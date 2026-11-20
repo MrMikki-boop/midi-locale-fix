@@ -1,11 +1,10 @@
 {
   "id": "midi-locale-fix",
   "title": "Midi Locale Key Fix",
-  "description": "<p>Исправляет локализованные ключи Active Effects и поиск автоматизаций для двуязычных предметов в Midi-QOL, Chris's Premades и CAT. Поддерживает Foundry VTT 13–14.</p>",
+  "description": "<p>Исправляет локализованные ключи Active Effects и поиск автоматизаций для двуязычных предметов в Midi-QOL, Chris's Premades и CAT. Для Foundry VTT 14.</p>",
   "version": "14.0.0",
   "compatibility": {
-    "minimum": "13",
-    "verified": "13",
+    "minimum": "14",
     "maximum": "14"
   },
   "esmodules": [
