@@ -18,6 +18,7 @@ export const SETTING_MENU_KEYS = {
 };
 
 export const CPR_PATCH_FLAG = "__midiLocaleFixCPRPatched";
+export const CAT_PATCH_FLAG = "__midiLocaleFixCATPatched";
 export const NOTIFICATION_PATCH_FLAG = "__midiLocaleFixNotificationPatched";
 
 export const SUPPRESSED_CPR_WARNINGS = {
@@ -50,7 +51,7 @@ export const SKILL_MAP = {
   "выс": "prf", "выступление": "prf",
   "убж": "per", "убеждение": "per",
   "рел": "rel", "религия": "rel",
-  "лвк": "slt", "лвр": "slt",
+  "лвк": "slt", "лвр": "slt", "ловкость рук": "slt",
   "скр": "ste", "скрытность": "ste",
   "вжв": "sur", "выживание": "sur"
 };

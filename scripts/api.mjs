@@ -1,10 +1,12 @@
 import {
+  CAT_PATCH_FLAG,
   CPR_PATCH_FLAG,
   MODULE_ID,
   NOTIFICATION_PATCH_FLAG,
   SETTING_KEYS
 } from "./constants.mjs";
 import { fixKey } from "./effect-key-fix.mjs";
+import { patchCATLocaleSearch, testCATItem } from "./cat-locale-patch.mjs";
 import {
   getLookupNameCandidates,
   isSuppressedCPRWarning,
@@ -28,6 +30,7 @@ function readSetting(key, fallback) {
 export function runDiagnostics() {
   const module = game.modules.get(MODULE_ID);
   const cpr = globalThis.chrisPremades;
+  const cat = globalThis.cat;
   const notifications = globalThis.ui?.notifications;
   const sampleCPRWarning = `${game.i18n.localize("CHRISPREMADES.Error.CompendiumItemNotFound")} chris-premades.CPRSpells: Fire Shield`;
 
@@ -36,6 +39,15 @@ export function runDiagnostics() {
       id: MODULE_ID,
       active: Boolean(module?.active),
       version: module?.version ?? module?.manifest?.version ?? null
+    },
+    environment: {
+      foundry: game.version ?? null,
+      system: game.system?.version ?? null,
+      effectChangesPath: Number(game.release?.generation) >= 14 ? "system.changes" : "changes",
+      integrations: Object.fromEntries(["midi-qol", "dae", "chris-premades", "cat"].map((id) => {
+        const integration = game.modules.get(id);
+        return [id, { active: Boolean(integration?.active), version: integration?.version ?? null }];
+      }))
     },
     settings: {
       debug: readSetting(SETTING_KEYS.debug, false),
@@ -50,6 +62,10 @@ export function runDiagnostics() {
       cprInstalled: Boolean(cpr),
       cprUtilsAvailable: Boolean(cpr?.utils?.genericUtils && cpr?.utils?.compendiumUtils),
       cprLocaleSearchPatched: Boolean(cpr?.[CPR_PATCH_FLAG]),
+      catInstalled: Boolean(cat),
+      catLocaleSearchPatched: Boolean(cat?.utils?.documentUtils?.[CAT_PATCH_FLAG]),
+      catRegistryReady: Boolean(cat?.lib?.constants?.automations?.ready),
+      catRegisteredAutomations: cat?.lib?.constants?.automations?.automations?.size ?? 0,
       notificationSuppressionPatched: Boolean(notifications?.[NOTIFICATION_PATCH_FLAG])
     },
     samples: {
@@ -79,8 +95,10 @@ export function exposeApi() {
     isSuppressedCPRWarning,
     normalizeCPRRules,
     patchCPRLocaleSearch,
+    patchCATLocaleSearch,
     patchNotificationSuppression,
     runDiagnostics,
+    testCATItem,
     testCPRName: (name) => ({
       name,
       candidates: getLookupNameCandidates(name)

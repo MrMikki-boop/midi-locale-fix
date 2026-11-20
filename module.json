@@ -1,8 +1,8 @@
 {
   "id": "midi-locale-fix",
   "title": "Midi Locale Key Fix",
-  "description": "<p>Перехватывает создание и обновление Active Effects, заменяя русские аббревиатуры характеристик и навыков (сил, лов, акр и т.д.) на английские (str, dex, acr). Решает проблему совместимости русских переводов с Midi-QoL и Cauldron of Plentiful Resources.</p>",
-  "version": "13.3.3",
+  "description": "<p>Исправляет локализованные ключи Active Effects и поиск автоматизаций для двуязычных предметов в Midi-QOL, Chris's Premades и CAT. Поддерживает Foundry VTT 13–14.</p>",
+  "version": "14.0.0",
   "compatibility": {
     "minimum": "13",
     "verified": "13",
@@ -34,18 +34,20 @@
   ],
   "url": "https://github.com/MrMikki-boop/midi-locale-fix",
   "manifest": "https://github.com/MrMikki-boop/midi-locale-fix/releases/latest/download/module.json",
-  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v13.3.3/midi-locale-fix.zip",
+  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v14.0.0/midi-locale-fix.zip",
   "license": "LICENSE",
   "readme": "README.md",
   "relationships": {
     "systems": [{ "id": "dnd5e", "type": "system" }],
-    "recommends": [
+    "requires": [
       { "id": "midi-qol", "type": "module" },
       {
         "id": "chris-premades",
         "type": "module",
         "compatibility": { "minimum": "1.5.27" }
-      },
+      }
+    ],
+    "recommends": [
       { "id": "skill-tree", "type": "module" }
     ]
   },

@@ -37,6 +37,7 @@ function getCPRRulesCandidates(key, rules) {
 }
 
 export function isSuppressedCPRWarning(message) {
+  if (!game.modules.get("chris-premades")?.active || !globalThis.chrisPremades?.utils?.genericUtils) return false;
   if (typeof message !== "string") return false;
   const prefix = game.i18n?.localize("CHRISPREMADES.Error.CompendiumItemNotFound");
   if (!prefix || prefix === "CHRISPREMADES.Error.CompendiumItemNotFound") return false;
@@ -58,6 +59,7 @@ export function isSuppressedCPRWarning(message) {
 }
 
 export function patchNotificationSuppression() {
+  if (!game.modules.get("chris-premades")?.active || !globalThis.chrisPremades?.utils?.genericUtils) return false;
   if (!getSetting(SETTING_KEYS.suppressCPRWarnings, true)) return false;
 
   const notifications = globalThis.ui?.notifications;
