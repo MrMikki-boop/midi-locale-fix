@@ -1,4 +1,6 @@
 import {
+  CAT_COMPENDIUM_NAME_PATCH_FLAG,
+  CAT_COMPENDIUM_PATCH_FLAG,
   CAT_PATCH_FLAG,
   CPR_PATCH_FLAG,
   MODULE_ID,
@@ -64,6 +66,8 @@ export function runDiagnostics() {
       cprLocaleSearchPatched: Boolean(cpr?.[CPR_PATCH_FLAG]),
       catInstalled: Boolean(cat),
       catLocaleSearchPatched: Boolean(cat?.utils?.documentUtils?.[CAT_PATCH_FLAG]),
+      catCompendiumSearchPatched: Boolean(cat?.utils?.compendiumUtils?.[CAT_COMPENDIUM_PATCH_FLAG]),
+      catCompendiumNameSearchPatched: Boolean(cat?.utils?.compendiumUtils?.[CAT_COMPENDIUM_NAME_PATCH_FLAG]),
       catRegistryReady: Boolean(cat?.lib?.constants?.automations?.ready),
       catRegisteredAutomations: cat?.lib?.constants?.automations?.automations?.size ?? 0,
       notificationSuppressionPatched: Boolean(notifications?.[NOTIFICATION_PATCH_FLAG])

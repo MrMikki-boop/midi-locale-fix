@@ -13,7 +13,7 @@
   "MIDI_LOCALE_FIX.Menus.SkillTree.Label": "Configure",
   "MIDI_LOCALE_FIX.Menus.SkillTree.Hint": "Synchronization of Skill Tree pages from linked items.",
   "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Name": "Fix CPR / CAT localized item lookup",
-  "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Hint": "Help CPR and CAT find automations for bilingual names such as 'Сглаз / Hex', including Laaru items. CAT keeps recognized and custom identifiers; ambiguous matches are skipped. Reload after changing this setting.",
+  "MIDI_LOCALE_FIX.Settings.FixCPRLookup.Hint": "Help CPR and CAT find automations for bilingual items and their copies, and documents in translated compendiums. Trailing '(копия)' and '(Copy)' are ignored during item lookup. When Laaru is active, its beasts are preferred. An explicitly configured folder takes priority. Recognized identifiers are preserved; ambiguous matches are skipped. Reload after changing this setting.",
   "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Name": "Suppress known CPR false warnings",
   "MIDI_LOCALE_FIX.Settings.SuppressCPRWarnings.Hint": "CPR 1.x only: hide the exact Fire Shield lookup warning when its item or CPR identifier is indexed. CAT warnings and genuinely missing items remain visible. Reload after changing this setting.",
   "MIDI_LOCALE_FIX.Settings.SkillTreeSyncName.Name": "Sync name",

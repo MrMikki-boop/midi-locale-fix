@@ -2,7 +2,7 @@
   "id": "midi-locale-fix",
   "title": "Midi Locale Key Fix",
   "description": "<p>Исправляет локализованные ключи Active Effects и поиск автоматизаций для двуязычных предметов в Midi-QOL, Chris's Premades и CAT. Для Foundry VTT 14.</p>",
-  "version": "14.0.1",
+  "version": "14.0.2",
   "compatibility": {
     "minimum": "14",
     "verified": "14",
@@ -34,7 +34,7 @@
   ],
   "url": "https://github.com/MrMikki-boop/midi-locale-fix",
   "manifest": "https://github.com/MrMikki-boop/midi-locale-fix/releases/latest/download/module.json",
-  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v14.0.1/midi-locale-fix.zip",
+  "download": "https://github.com/MrMikki-boop/midi-locale-fix/releases/download/v14.0.2/midi-locale-fix.zip",
   "license": "LICENSE",
   "readme": "README.md",
   "relationships": {
@@ -46,9 +46,6 @@
         "type": "module",
         "compatibility": { "minimum": "1.5.27" }
       }
-    ],
-    "recommends": [
-      { "id": "skill-tree", "type": "module" }
     ]
   },
   "flags": {}

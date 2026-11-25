@@ -78,8 +78,10 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw 'Tag creation failed' }
           }
           if ($release) {
+            gh release edit $tag --repo $env:GITHUB_REPOSITORY --title "$tag"
+            if ($LASTEXITCODE -ne 0) { throw 'Could not update release draft title' }
             gh release upload $tag "dist/module.json" "dist/$($m.id).zip" --repo $env:GITHUB_REPOSITORY --clobber
           } else {
-            gh release create $tag "dist/module.json" "dist/$($m.id).zip" --repo $env:GITHUB_REPOSITORY --verify-tag --draft --title "$($m.title) $($m.version)" --generate-notes
+            gh release create $tag "dist/module.json" "dist/$($m.id).zip" --repo $env:GITHUB_REPOSITORY --verify-tag --draft --title "$tag" --generate-notes
           }
           if ($LASTEXITCODE -ne 0) { throw 'Preparing release assets failed' }

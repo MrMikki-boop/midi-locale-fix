@@ -19,6 +19,8 @@ export const SETTING_MENU_KEYS = {
 
 export const CPR_PATCH_FLAG = "__midiLocaleFixCPRPatched";
 export const CAT_PATCH_FLAG = "__midiLocaleFixCATPatched";
+export const CAT_COMPENDIUM_PATCH_FLAG = "__midiLocaleFixCATCompendiumPatched";
+export const CAT_COMPENDIUM_NAME_PATCH_FLAG = "__midiLocaleFixCATCompendiumNamePatched";
 export const NOTIFICATION_PATCH_FLAG = "__midiLocaleFixNotificationPatched";
 
 export const SUPPRESSED_CPR_WARNINGS = {
